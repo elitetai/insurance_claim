@@ -1,0 +1,16 @@
+{% extends 'claims/layout.html' %}
+
+{% block title %}Homepage | {% endblock %}
+
+{% block content %}
+<div class="container">
+
+    {% if user.is_authenticated %}
+    <h1>Please click on Profile to view the claim status</h1>
+    {% else %}
+    <h1>Please signup or login for further action</h1>
+    {% endif %}
+
+</div>
+
+{% endblock %}

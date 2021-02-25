@@ -1,0 +1,22 @@
+{% extends 'claims/layout.html' %}
+
+{% block title %}File Claim | {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h1>File Your Claim!</h1>
+    
+    <hr>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <hr>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+
+{% endblock %}

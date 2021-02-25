@@ -2,7 +2,12 @@ Claims Application for Motor Insurance
 
 Requirements:
 
-1. As a user, I would like to submit a Motor Insurance claim form via website. I need to login in order to submit the claim form. I need to fill in the "basic insured and driver details", "vehicle details", "loss details" and "documents required for claims" in the claim form. I can login to do modification on my claims or delete my claims as long as the claim's status is "In Progress". If the claim status becomes "Accepted", I cannot modify or delete the claim. The claim form details are as follow:
+1. As a user, I would like to submit a Motor Insurance claim form via website. 
+I need to login in order to submit the claim form. I need to fill in the "basic insured and driver details", "vehicle details", "loss details" and "documents required for claims" in the claim form. 
+I can login to do modification on my claims or delete my claims as long as the claim's status is "In Progress". 
+If the claim status becomes "Accepted", I cannot modify or delete the claim. 
+
+The claim form details are as follow:
 
    Basic insured and driver details:
    - Name
@@ -17,10 +22,10 @@ Requirements:
    Loss details:
    - Date and time of accident
    - Location
-   - Type of Loss. Choices of: Own Damage, Knock for Knock, Windscreen Damage, Theft.
+   - Type of Loss. Choices of: Own Damage, Knock for Knock, Windscreen Damage, Theft. 
    - Description of Loss
-   - Police Report Lodged? Choices of: Yes or No
-   - Anybody Injured? Choices of: Yes or No
+   - Police Report Lodged? Choices of: Yes or No 
+   - Anybody Injured? Choices of: Yes or No 
 
    Documents required for claims
    - Photo
