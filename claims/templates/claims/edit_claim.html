@@ -1,0 +1,26 @@
+{% extends 'claims/layout.html' %}
+
+{% block title %}Edit Claim | {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Edit Claim #{{ claim.id }}</h1>
+        
+    <hr>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <hr>
+        <button type="submit" class="btn btn-primary" 
+        {% if claim.claim_approved%}disabled{% endif %} >Edit</button>
+        <a class="btn btn-danger {% if claim.claim_approved%}disabled{% endif %}" href="{% url 'delete_claim' claim.id %}" >Delete</a>
+        <a class="btn btn-info" href="{% url 'profile' %}">Cancel</a>
+    </form>
+
+  </div>
+
+{% endblock %}

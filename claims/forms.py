@@ -4,10 +4,10 @@ from .models import Claim
 import datetime
 
 TYPE_OF_LOSS = [
-    ('1', 'Own Damage'), 
-    ('2', 'Knock for Knock'), 
-    ('3', 'Windscreen Damage'), 
-    ('4', 'Theft'),
+    ('Own Damage', 'Own Damage'), 
+    ('Knock for Knock', 'Knock for Knock'), 
+    ('Windscreen Damage', 'Windscreen Damage'), 
+    ('Theft', 'Theft'),
 ]
 TRUE_FALSE_CHOICES = [
     (True, 'Yes'),
@@ -29,7 +29,8 @@ class ClaimForm(forms.ModelForm):
     type_of_loss = forms.ChoiceField(choices=TYPE_OF_LOSS)
     police_report_lodged = forms.ChoiceField(widget=forms.RadioSelect, choices=TRUE_FALSE_CHOICES)
     anybody_injured = forms.ChoiceField(widget=forms.RadioSelect, choices=TRUE_FALSE_CHOICES, label='Anybody injured during the accident?')
-    document_in_pdf_format = forms.FileField(widget=forms.FileInput(attrs={'accept':'application/pdf'}))
+    document_in_pdf_format = forms.FileField(required=True) # to show it during editing
+    # document_in_pdf_format = forms.FileField(widget=forms.FileInput(attrs={'accept':'application/pdf'})) # doens't work together with required=True
 
     class Meta:
         model = Claim

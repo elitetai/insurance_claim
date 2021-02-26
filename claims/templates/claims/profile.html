@@ -1,6 +1,6 @@
 {% extends 'claims/layout.html' %}
 
-{% block title %}Homepage | {% endblock %}
+{% block title %}Profile | {% endblock %}
 
 {% block content %}
 
@@ -10,12 +10,34 @@
     <hr>
 
     <a href="{% url 'file_claim' %}">File a claim</a>
-    <!-- {% if user.is_authenticated %}
-    <h1>Please click on Profile to view the claim status</h1>
-    {% else %}
-    <h1>Please signup or login for further action</h1>
-    {% endif %} -->
 
-  </div>
+    <hr>
+
+    <h3>Claim Status</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Claimant Name</th>
+                <th scope="col">Status</th>
+                <th scope="col">Created At</th>
+            </tr>
+        </thead>
+        {% for claim in claims %}
+            <tbody>
+                <tr>
+                    <th scope="row">{{ claim.id }}</th>
+                    <td><a href="{% url 'edit_claim' claim.id %}">{{ claim.full_name }}</a></td>
+                    <td>{{ claim.claim_approved|yesno:"Accepted,In Progress" }}</td>
+                    <td>{{ claim.created_at }}</td>
+                </tr>
+            </tbody>
+        {% empty %}
+            <p>No claim record is available</p>
+        {% endfor %}
+    </table>
+
+</div>
 
 {% endblock %}

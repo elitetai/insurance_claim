@@ -10,7 +10,6 @@ def index(request):
     return render(request, 'claims/homepage.html', {'user': request.user})
 
 def create_user(request):
-    print(request.POST)
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
 
@@ -30,7 +29,10 @@ def create_user(request):
 
 @login_required
 def profile(request):
-    return render(request, 'claims/profile.html')
+    user = request.user
+    claims = Claim.objects.filter(created_by=user)
+
+    return render(request, 'claims/profile.html', {'claims': claims})
 
 @login_required
 def file_claim(request):
@@ -43,25 +45,41 @@ def file_claim(request):
             claim.save()
 
             return redirect('profile')
-            #     claim = Claim.objects.create(
-            #         full_name = ,
-            #         email = , 
-            #         mobile_number = , 
-            #         vehicle_manufacture_year = , 
-            #         vehicle_model = ,
-            #         vehicle_number = , 
-            #         date_and_time_of_accident = , 
-            #         accident_location = , 
-            #         type_of_loss = , 
-            #         description_of_loss = , 
-            #         police_report_lodged = , 
-            #         anybody_injured = , 
-            #         photo = , 
-            #         document_in_pdf_format = , 
-            # )
         else:
             print(form.errors)
     else:
         form = ClaimForm()
 
     return render(request, 'claims/file_claim.html', {'form':form})
+
+@login_required
+def edit_claim(request, id):
+    single_claim = Claim.objects.get(pk=int(id))
+
+    import datetime
+    datetime_local_format = single_claim.date_and_time_of_accident.strftime("%Y-%m-%dT%H:%M")
+    single_claim.date_and_time_of_accident = datetime_local_format
+
+    if request.method == 'POST':
+        form = ClaimForm(request.POST, instance=single_claim)
+        form.save()
+
+        return redirect('profile')
+    else:
+        form = ClaimForm(instance=single_claim)
+
+        data = {
+            'form': form,
+            'claim': single_claim
+            }
+
+        return render(request, 'claims/edit_claim.html', data)
+
+@login_required
+def delete_claim(request, id):
+    single_claim = Claim.objects.get(pk=int(id))
+    if request.method == 'POST':
+        single_claim.delete()
+        return redirect('profile')
+    else: 
+        return render(request, 'claims/delete_claim.html', {'claim': single_claim})

@@ -10,4 +10,6 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='claims/authentication.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('file-claim/', views.file_claim, name='file_claim'),
+    path('edit-claim/<int:id>/', views.edit_claim, name='edit_claim'),
+    path('delete-claim/<int:id>/', views.delete_claim, name='delete_claim'),
 ]
