@@ -62,9 +62,14 @@ def edit_claim(request, id):
 
     if request.method == 'POST':
         form = ClaimForm(request.POST, instance=single_claim)
-        form.save()
+        if form.is_valid():
 
-        return redirect('profile')
+            # security measure for html code injection / amending url
+            if form.cleaned_data['claim_approved'] == True:
+                return redirect('profile')
+
+            form.save()
+            return redirect('profile')
     else:
         form = ClaimForm(instance=single_claim)
 
@@ -78,6 +83,11 @@ def edit_claim(request, id):
 @login_required
 def delete_claim(request, id):
     single_claim = Claim.objects.get(pk=int(id))
+
+    # # security measure for html code injection / amending url
+    if single_claim.claim_approved == True:
+        return redirect('profile')
+
     if request.method == 'POST':
         single_claim.delete()
         return redirect('profile')
