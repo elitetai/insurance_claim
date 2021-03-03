@@ -30,8 +30,9 @@ class ClaimForm(forms.ModelForm):
     police_report_lodged = forms.ChoiceField(widget=forms.RadioSelect, choices=TRUE_FALSE_CHOICES)
     anybody_injured = forms.ChoiceField(widget=forms.RadioSelect, choices=TRUE_FALSE_CHOICES, label='Anybody injured during the accident?')
     document_in_pdf_format = forms.FileField(required=True) # to show it during editing
-    # document_in_pdf_format = forms.FileField(widget=forms.FileInput(attrs={'accept':'application/pdf'})) # doens't work together with required=True
+    # document_in_pdf_format = forms.FileField(widget=forms.FileInput(attrs={'accept':'application/pdf'})) # doesn't work together with required=True
+    claim_approved = forms.BooleanField(widget=forms.HiddenInput, disabled=True, required=False)
 
     class Meta:
         model = Claim
-        exclude = ['claim_approved','created_at', 'created_by']
+        exclude = ['created_at', 'created_by']
